@@ -11,6 +11,7 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   int _currentPage = 0;
+  final PageController _pageController = PageController();
 
   final List<IntroPage> _pages = [
     IntroPage(
@@ -40,11 +41,18 @@ class _IntroScreenState extends State<IntroScreen> {
   ];
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           PageView.builder(
+            controller: _pageController,
             onPageChanged: (index) {
               setState(() => _currentPage = index);
             },
@@ -83,7 +91,10 @@ class _IntroScreenState extends State<IntroScreen> {
                     ElevatedButton.icon(
                       onPressed: _currentPage > 0
                           ? () {
-                              setState(() => _currentPage--);
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
                             }
                           : null,
                       icon: const Icon(Icons.arrow_back),
@@ -92,7 +103,10 @@ class _IntroScreenState extends State<IntroScreen> {
                     ElevatedButton.icon(
                       onPressed: _currentPage < _pages.length - 1
                           ? () {
-                              setState(() => _currentPage++);
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
                             }
                           : widget.onComplete,
                       icon: Icon(
