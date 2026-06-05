@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/shipment.dart';
-import '../services/shipment_service.dart';
 import '../widgets/shipment_card.dart';
+import '../data/mockShipment.dart';
 
 class ShipmentsScreen extends StatefulWidget {
   const ShipmentsScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../data/mockTrackingData.dart';
 class TrackingScreen extends StatefulWidget {
   const TrackingScreen({Key? key}) : super(key: key);
 
@@ -10,15 +10,6 @@ class TrackingScreen extends StatefulWidget {
 class _TrackingScreenState extends State<TrackingScreen> {
   final TextEditingController _searchController = TextEditingController();
   String? _selectedShipment;
-
-  final Map<String, String> _mockTrackingData = {
-    'SHP001': 'Em rota para Marte - 45 dias restantes',
-    'SHP002': 'Entregue em Europa - 26/05/2026',
-    'SHP003': 'Aguardando despacho - Partida em 10/06/2026',
-    'SHP004': 'Em rota para Lua - 35 dias restantes',
-    'SHP005': 'Cancelado por pedido do cliente',
-    'SHP006': 'Em rota para Marte - 50 dias restantes',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +63,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
         setState(() {});
       },
       onSubmitted: (value) {
-        if (_mockTrackingData.containsKey(value.toUpperCase())) {
+        if (mockTrackingData.containsKey(value.toUpperCase())) {
           setState(() => _selectedShipment = value.toUpperCase());
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -151,7 +142,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      _mockTrackingData[_selectedShipment] ??
+                      mockTrackingData[_selectedShipment] ??
                           'Informação não disponível',
                       style: const TextStyle(
                         fontSize: 16,
